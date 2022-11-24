@@ -1,0 +1,46 @@
+﻿<table align="center"><td>PRIJAVLJIVANJE KORISNIKA</td></table>
+<div>
+    @ViewBag.Message
+</div>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<body>
+
+<form action="~/Autentifikacija/ObradiLogovanje" method="post" >
+    <table align="center">
+        <tr>
+            <td>Korisnicko ime:</td>
+            <td><input type="text" name="korisnickoIme" /></td>
+        </tr>
+
+        <tr>
+            <td>Lozinka:</td>
+            <td><input type="password" name="lozinka" /></td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="Prijavi se" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<!--Forma za redirekciju kad kliknemo dugme registracija-->
+<form action="~/Autentifikacija/Registracija" method="post">
+    <table align="center">
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Registracija" />
+            </td>
+        </tr>
+    </table>
+</form>
+    <form action="~/Autentifikacija/Pocetna" method="post">
+        <table align="center"> <tr><td> <input type="submit" value="Pocetna" /></td></tr></table>
+       
+    </form>
+</body>

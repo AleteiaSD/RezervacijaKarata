@@ -1,0 +1,194 @@
+﻿@using RezervacijaKarata.Models
+@{
+    ViewBag.Title = "Administrator";
+}
+
+<!DOCTYPE html>
+
+<html>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<style>
+    table {
+        background-color: #ffd800;
+    }
+</style>
+<body>
+    <form action="~/Autentifikacija/IzlogujSe" method="post">
+        <table>
+            <td><input type="submit" value="Izloguj se" /></td>
+        </table>
+    </form>
+    <form action="~/Autentifikacija/Pocetna" method="post">
+        <input type="submit" value="Pocetna" />
+    </form>
+    <form action="~/Administrator/PredjiNaProdavca" method="post">
+        <table>
+            <td><input type="submit" value="MANIFESTACIJE PRODAVAC" /></td>
+        </table>
+    </form>
+    <h1>ADMINISTRATOR STRANICA</h1>
+    <p>Spisak svih korisnika registrovanih na sistemu:</p>
+    <table border="1">
+        <form action="~/Administrator/SortirajPoImenuRastuce" method="post">
+            <input type="submit" value="Ime >" />
+        </form>
+        <form action="~/Administrator/SortirajPoImenuOpadajuce" method="post">
+            <input type="submit" value="Ime <" />
+        </form>
+        <form action="~/Administrator/SortirajPoPrezimenuRastuce" method="post">
+            <input type="submit" value="Prezime >" />
+        </form>
+        <form action="~/Administrator/SortirajPoPrezimenuOpadajuce" method="post">
+            <input type="submit" value="Prezime <" />
+        </form>
+        <form action="~/Administrator/SortirajPoKorisnickomImenuRastuce" method="post">
+            <input type="submit" value="Korisnicko ime >" />
+        </form>
+        <form action="~/Administrator/SortirajPoKorisnickomImenuOpadajuce" method="post">
+            <input type="submit" value="Korisnickom ime <" />
+        </form>
+        <form action="~/Administrator/SortirajPoBrojSakupljenihBodovaRastuce" method="post">
+            <input type="submit" value="Broj bodova >" />
+        </form>
+        <form action="~/Administrator/SortirajPoBrojSakupljenihBodovaOpadajuce" method="post">
+            <input type="submit" value="Broj bodova <" />
+        </form>
+
+        <tr bgcolor="yellow">
+            <th>Korisnicko ime</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Pol</th>
+            <th>Datum rodjenja</th>
+            <th>Uloga</th>
+            <th>Tip korisnika</th>
+            <th>Popust [%]</th>
+            <th>Trazeni broj bodova</th>
+            <th>Broj sakupljenih bodova</th>
+        </tr>
+        @foreach (Korisnik korisnik in ViewBag.korisnici.listaKorisnika.Values)
+        {
+            <tr>
+                <td width="150">@korisnik.KorisnickoIme</td>
+                <td width="150">@korisnik.Ime</td>
+                <td width="70">@korisnik.Prezime</td>
+                <td width="140">@korisnik.Pol</td>
+                <td width="100">@korisnik.DatumRodjenja</td>
+                <td width="150">@korisnik.Uloga</td>
+                <td width="150">@korisnik.TipKorisnika.ImeTipa</td>
+                <td>@korisnik.TipKorisnika.Popust</td>
+                <td>@korisnik.TipKorisnika.TrazeniBrojBodova</td>
+                <td>@korisnik.BrojSakupljenihBodova</td>
+            </tr>
+        }
+    </table>
+    </br>
+    <form action="~/Administrator/ObrisiKorisnikaLogicki" method="post">
+        <table border="1">
+            <td>Korisnicko ime:</td>
+            <td><input type="text" name="obrisiKorisnickoIme" /></td>
+            <td><input type="submit" value="Obrisi korisnika" /></td>
+        </table>
+    </form>
+    </br>
+
+    <p>PRETRAGA KORISNIKA:</p>
+    <form action="~/Administrator/PretragaIme" method="post">
+        <table>
+            <td>Ime:</td>
+            <td><input type="text" name="pretragaIme" /></td>
+            <td><input type="submit" value="Pretraga" /></td>
+        </table>
+    </form>
+    <form action="~/Administrator/PretragaPrezime" method="post">
+        <table>
+            <td>Prezime:</td>
+            <td><input type="text" name="pretragaPrezime" /></td>
+            <td><input type="submit" value="Pretraga" /></td>
+        </table>
+    </form>
+    <form action="~/Administrator/PretragaKorisnickoIme" method="post">
+        <table>
+            <td>Korisnicko ime:</td>
+            <td><input type="text" name="pretragaKorisnickoIme" /></td>
+            <td><input type="submit" value="Pretraga" /></td>
+        </table>
+    </form>
+
+
+    <p>FILTRIRANJE KORISNIKA</p>
+    <form action="~/Administrator/FiltriranjeUloga" method="post">
+        <table>
+            <td>Uloga:</td>
+            <td>
+                <input list="uloge" name="filtriranjeUloga" />
+                <datalist id="uloge">
+                    <option value="ADMINISTRATOR"></option>
+                    <option value="PRODAVAC"></option>
+                    <option value="KUPAC"></option>
+                </datalist>
+            </td>
+            <td><input type="submit" value="Filtriraj" /></td>
+        </table>
+    </form>
+    <form action="~/Administrator/FiltriranjeTipKorisnika" method="post">
+        <table>
+            <td>Tip korisnika:</td>
+            <td>
+                <input list="tipovi" name="filtriranjeTipKorisnika" />
+                <datalist id="tipovi">
+                    <option value="ZLATNI"></option>
+                    <option value="SREBRNI"></option>
+                    <option value="BRONZANI"></option>
+                </datalist>
+            </td>
+            <td><input type="submit" value="Filtriraj" /></td>
+        </table>
+    </form>
+    </br>
+    <form action="~/Administrator/KreirajProdavca" method="post">
+        <table border="1">
+            <th class="first" colspan="2" align="center" bgcolor="yellow">Kreiraj prodavca</th>
+            <tr align="left">
+                <td>Korisnicko ime:</td>
+                <td> <input type="text" name="kreirajKorisnickoIme" /></td>
+            </tr>
+            <tr align="left">
+                <td>Lozinka:</td>
+                <td> <input type="text" name="kreirajLozinku" /></td>
+            </tr>
+            <tr align="left">
+                <td>Ime:</td>
+                <td> <input type="text" name="kreirajIme" /></td>
+            </tr>
+            <tr align="left">
+                <td>Prezime:</td>
+                <td> <input type="text" name="kreirajPrezime" /></td>
+            </tr>
+            <tr>
+                <td>Pol:</td>
+                <td>
+                    <input list="polovi" name="kreirajpol" />
+                    <datalist id="polovi">
+                        <option value="MUSKO"></option>
+                        <option value="ZENSKO"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Datum rodjenja:</td>
+                <td><input type="date" name="kreirajDatumRodjenja" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="kreirajKorisnikaSubmit" value=" KREIRAJ PRODAVCA ">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

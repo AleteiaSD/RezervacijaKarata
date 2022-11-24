@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1169
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RezervacijaKarata", "RezervacijaKarata\RezervacijaKarata.csproj", "{74D0C82F-A96F-47F9-A8C6-F25270AA5139}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74D0C82F-A96F-47F9-A8C6-F25270AA5139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74D0C82F-A96F-47F9-A8C6-F25270AA5139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74D0C82F-A96F-47F9-A8C6-F25270AA5139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74D0C82F-A96F-47F9-A8C6-F25270AA5139}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {843F3E77-E64E-426F-86FE-DB9651F51402}
+	EndGlobalSection
+EndGlobal

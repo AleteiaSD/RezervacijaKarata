@@ -1,0 +1,268 @@
+﻿@using RezervacijaKarata.Models
+@{
+    ViewBag.Title = "Korisnik";
+}
+
+<!DOCTYPE html>
+
+<html>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<style>
+    table {
+        background-color: #ffd800;
+    }
+</style>
+<body>
+    <table>
+        <form action="~/Autentifikacija/IzlogujSe" method="post">
+            <td><input type="submit" value="Izloguj se" /></td>
+        </form>
+        <form action="~/Autentifikacija/Pocetna" method="post">
+            <td><input type="submit" value="Pocetna" /></td>
+        </form>
+        <form action="~/Administrator/PrikazOdobrenihKomentaraKupac" method="post">
+            <input type="submit" value="Komentari o manifestacijama" />
+        </form>
+    </table>
+    <h1 align="center"><b>KORISNIK STRANICA</b></h1>
+    <table border="1" align="center">
+        <tr bgcolor="yellow">
+            <th>Korisnicko ime</th>
+            <th>Lozinka</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Pol</th>
+            <th>Datum rodjenja</th>
+            <th>Uloga korisnika</th>
+            <th>Tip korisnika</th>
+        </tr>
+        @foreach (Korisnik korisnik in ViewBag.korisnici.listaKorisnika.Values)
+        {
+            Korisnik k = new Korisnik();
+            k = (Korisnik)Session["korisnik"];
+
+            if (k.KorisnickoIme == korisnik.KorisnickoIme)
+            {
+                <tr>
+                    <td width="150">@korisnik.KorisnickoIme</td>
+                    <td width="150">@korisnik.Lozinka</td>
+                    <td width="150">@korisnik.Ime</td>
+                    <td width="70">@korisnik.Prezime</td>
+                    <td width="140">@korisnik.Pol</td>
+                    <td width="100">@korisnik.DatumRodjenja</td>
+                    <td width="150">@korisnik.Uloga</td>
+                    <td width="150">@korisnik.TipKorisnika.ImeTipa</td>
+                </tr>
+            }
+        }
+    </table>
+    </br>
+
+    @{
+        Korisnik kor = new Korisnik();
+        kor = (Korisnik)Session["korisnik"];
+    }
+    <form action="~/Administrator/IzmeniKorisnika" method="post">
+        <table border="1" align="center">
+            <th class="first" colspan="2" align="center" bgcolor="yellow">Izmeni licne podatke</th>
+            <tr align="left">
+                <td>Korisnicko ime:</td>
+                <td> <input type="text" name="izmeniKorisnickoIme" value="@kor.KorisnickoIme" /></td>
+            </tr>
+            <tr align="left">
+                <td>Lozinka:</td>
+                <td> <input type="text" name="izmeniLozinku" value="@kor.Lozinka" /></td>
+            </tr>
+            <tr align="left">
+                <td>Ime:</td>
+                <td> <input type="text" name="izmeniIme" value="@kor.Ime" /></td>
+            </tr>
+            <tr align="left">
+                <td>Prezime:</td>
+                <td> <input type="text" name="izmeniPrezime" value="@kor.Prezime" /></td>
+            </tr>
+            <tr>
+                <td>Pol:</td>
+                <td>
+                    <input list="polovi" name="pol" value="@kor.Pol" />
+                    <datalist id="polovi">
+                        <option value="MUSKO"></option>
+                        <option value="ZENSKO"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Datum rodjenja:</td>
+                <td><input type="date" name="izmeniDatumRodjenja" value="@kor.DatumRodjenja" /></td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="submit" name="izmeniKorisnikaSubmit" value=" IZMENI PODATKE ">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <h1 align="center"><b>KORISNIK KARTE</b></h1>
+    <table border="1" align="center">
+        Sortiraj tabelu po:
+        <form action="~/Administrator/SortirajPoNazivuRastuce" method="post">
+            <input type="submit" value="Naziv >" />
+        </form>
+        <form action="~/Administrator/SortirajPoNazivuOpadajuce" method="post">
+            <input type="submit" value="Naziv <" />
+        </form>
+        <form action="~/Administrator/SortirajPoCeniRastuce" method="post">
+            <input type="submit" value="Cena >" />
+        </form>
+        <form action="~/Administrator/SortirajPoCeniOpadajuce" method="post">
+            <input type="submit" value="Cena <" />
+        </form>
+        <form action="~/Administrator/SortirajPoDatumuRastuce" method="post">
+            <input type="submit" value="Datum >" />
+        </form>
+        <form action="~/Administrator/SortirajPoDatumuOpadajuce" method="post">
+            <input type="submit" value="Datum <" />
+        </form>
+        <tr bgcolor="yellow">
+            <th>Id karte</th>
+            <th>Id manifestacije</th>
+            <th>Naziv</th>
+            <th>Datum i vreme</th>
+            <th>Cena</th>
+            <th>Status karte</th>
+            <th>Tip</th>
+            <th>Broj karata</th>
+        </tr>
+        @foreach (Karta karta in ViewBag.karte.listaKarata.Values)
+        {
+            Korisnik k = new Korisnik();
+            k = (Korisnik)Session["korisnik"];
+            
+            if (k.Ime == karta.ImeKupca && k.Prezime == karta.PrezimeKupca  )
+            {
+                <tr>
+                    <td width="150">@karta.JedinstveniIdentifikatorKarte</td>
+                    <td>@karta.ManifestacijaZaKojuJeRezervisana.Id</td>>
+                    <td width="150">@karta.ManifestacijaZaKojuJeRezervisana.Naziv</td>
+                    <td width="150">@karta.DatumIVremeManifestacije</td>
+                    <td width="150">@karta.Cena</td>
+                    <td width="70">@karta.StatusKarta</td>
+                    <td width="140">@karta.Tip</td>
+                    <td width="100">@karta.BrojKarata</td>
+                </tr>
+            }
+        }
+    </table>
+    </br>
+
+    <form action="~/Administrator/PretragaKorisnickihRezervacija" method="post">
+        <table border="1" align="center">
+            <tr>
+                <td>Naziv manifestacije:</td>
+                <td><input type="text" name="pretragaRezervacijaNaziv" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">Cena</td>
+            </tr>
+            <tr>
+                <td>OD:</td>
+                <td><input type="number" name="pretragaRezervacijaCenaOd" /></td>
+            </tr>
+            <tr>
+                <td>Do:</td>
+                <td><input type="number" name="pretragaRezervacijaCenaDo" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">Datum odrzavanja</td>
+            </tr>
+            <tr>
+                <td>OD:</td>
+                <td><input type="date" name="pretragaRezervacijaDatumOd" /></td>
+            </tr>
+            <tr>
+                <td>DO:</td>
+                <td><input type="date" name="pretragaRezervacijaDatumDo" /></td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2"><input type="submit" value="Pretrazi" name="pretragaPretrazi" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">FILTRIRANJE PODATAKA</td>
+            </tr>
+            <tr>
+                <td>Tip karte:</td>
+                <td>
+                    <input list="filtriranjeTip" name="filtriranjeTip" />
+                    <datalist id="filtriranjeTip">
+                        <option value="REGULAR"></option>
+                        <option value="FANPIT"></option>
+                        <option value="VIP"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Status karte:</td>
+                <td>
+                    <input list="statusFilter" name="filtriranjeStatus" />
+                    <datalist id="statusFilter">
+                        <option value="REZERVISANA"></option>
+                        <option value="ODUSTANAK"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Filtriraj" name="filtrirajRezervacije" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">PRIKAZI SAMO REZERVISANE</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="SAMO REZERVISANE" name="prikazRezervisani" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">ODUSTANAK</td>@ViewBag.Odustanak
+            </tr>
+            <tr>
+                <td>Id karte:</td>
+                <td><input type="number" name="odustanakOdRezervacije" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Odustani" name="odustaniRezervisani" /></td>
+            </tr>
+        </table>
+    </form>
+    </br>
+    <form action="~/Administrator/DodajKomentar" method="post">
+        <table border="1" align="center">
+            <tr>
+                <td>Id manifestacije:</td>
+                <td><input type="number" name="idManifestacijeKomentar" /></td>
+            </tr>
+            <tr>
+                <td>Komentar:</td>
+                <td><input type="text" name="ostaviKomentar" /></td>
+            </tr>
+            <tr>
+                <td>Ocena:</td>
+                <td>
+                    <input list="ocena" name="oceniKomentar" />
+                    <datalist id="ocena">
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Ostavi komentar" /></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

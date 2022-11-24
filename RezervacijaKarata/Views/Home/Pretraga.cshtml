@@ -1,0 +1,66 @@
+﻿@using RezervacijaKarata.Models
+@{
+    ViewBag.Title = "Pretraga";
+}
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<style>
+    table {
+        background-color: #ffd800;
+    }
+</style>
+<body>
+    <table>
+        <form action="~/Autentifikacija/Index" method="post">
+            <input type="submit" value="Prijavi se" />
+        </form>
+        <form action="~/Autentifikacija/Registracija" method="post">
+            <input type="submit" value="Registracija" />
+        </form>
+        <form action="~/Autentifikacija/Pocetna" method="post">
+            <input type="submit" value="Pocetna" />
+        </form>
+    </table>
+    <h1 align="center"><b>REZULTAT PRETRAGE</b></h1>
+    <table border="1" align="center">
+        <tr bgcolor="yellow">
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Tip manifestacije</th>
+            <th>Datum odrzavanja</th>
+            <th>Vreme odrzavanja</th>
+            <th>Ulica i broj</th>
+            <th>Mesto/Grad</th>
+            <th>Postanski broj</th>
+            <th>Cena karte</th>
+            <th>Poster manifestacije</th>
+            <th>Prosecna ocena manifestacije</th>
+        </tr>
+        @foreach (Manifestacija manifestacije in ViewBag.manifestacije.listaManifestacija.Values)
+        {
+            <tr>
+                <td>@manifestacije.Id</td>
+                <td>@manifestacije.Naziv</td>
+                <td>@manifestacije.TipManifestacije</td>
+                <td>@manifestacije.DatumOdrzavanja</td>
+                <td>@manifestacije.VremeOdrzavanja</td>
+                <td>@manifestacije.MestoOdrzavanja.UlicaIBroj</td>
+                <td>@manifestacije.MestoOdrzavanja.MestoGrad</td>
+                <td>@manifestacije.MestoOdrzavanja.PostanskiBroj</td>
+                <td>@manifestacije.CenaRegularKarte</td>
+            </tr>
+        }
+    </table>
+    <form action="~/Home/PrikazJedne" method="post">
+        <table border="1" align="center">
+            <td><input type="number" name="prikazHomeId" /></td>
+            <td><input type="submit" value="Prikazi" /></td>
+        </table>
+    </form>
+</body>
+</html>

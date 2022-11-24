@@ -1,0 +1,76 @@
+﻿@using RezervacijaKarata.Models
+@{
+    ViewBag.Title = "PrikazJedne";
+}
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<style>
+    table {
+        background-color: #ffd800;
+    }
+</style>
+<body>
+    <form action="~/Autentifikacija/Pocetna" method="post">
+        <td><input type="submit" value="Pocetna" /></td>
+    </form>
+    </br>
+    <h1 align="center">PRIKAZ JEDNE MANIFESTACIJE</h1>
+    <table border="1" align="center">
+        <tr bgcolor="yellow">
+            <th>Naziv</th>
+            <th>Tip manifestacije</th>
+            <th>Broj mesta</th>
+            <th>Datum odrzavanja</th>
+            <th>Vreme odrzavanja</th>
+            <th>Cena karte</th>
+            <th>Status</th>
+            <th>Ulica i broj</th>
+            <th>Mesto/Grad</th>
+            <th>Postanski broj</th>
+            <th>Preostali broj karata</th>
+            <th>Poster manifestacije</th>
+        </tr>
+        @foreach (Manifestacija manifestacije in ViewBag.manifestacije.listaManifestacija.Values)
+        {
+        <tr>
+            <td>@manifestacije.Naziv</td>
+            <td>@manifestacije.TipManifestacije</td>
+            <td>@manifestacije.BrojMesta</td>
+            <td>@manifestacije.DatumOdrzavanja</td>
+            <td>@manifestacije.VremeOdrzavanja</td>
+            <td>@manifestacije.CenaRegularKarte</td>
+            <td>@manifestacije.Status</td>
+            <td>@manifestacije.MestoOdrzavanja.UlicaIBroj</td>
+            <td>@manifestacije.MestoOdrzavanja.MestoGrad</td>
+            <td>@manifestacije.MestoOdrzavanja.PostanskiBroj</td>
+            <td>@manifestacije.BrojMesta</td>
+            <td><img width="150" height="50" class="image" src="~/Slike/@manifestacije.PosterManifestacije" /></td>
+        </tr>
+        }
+    </table></br>
+    <h1 align="center">KOMENTARI O MANIFESTACIJI</h1>
+    <table border="1" align="center">
+        <tr bgcolor="yellow">
+            <th>Ko je ostavio komentar</th>
+            <th>Komentar</th>
+
+        </tr>
+        @foreach (Komentar k in ViewBag.komentari.listaKomentara.Values)
+        {
+            <tr>
+                <td>@k.KorisnickoImeKupcaKarte</td>
+                <td width="1000">@k.TekstKomentara</td>
+
+
+            </tr>
+        }
+    </table>
+
+
+</body>
+</html>

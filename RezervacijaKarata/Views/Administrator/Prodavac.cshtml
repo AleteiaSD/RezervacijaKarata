@@ -1,0 +1,214 @@
+﻿@using RezervacijaKarata.Models
+
+@{
+    ViewBag.Title = "Prodavac";
+}
+
+<!DOCTYPE html>
+
+<html>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<style>
+    table {
+        background-color: #ffd800;
+    }
+</style>
+<body>
+    <form action="~/Autentifikacija/IzlogujSe" method="post">
+        <table>
+            <td><input type="submit" value="Izloguj se"/></td>
+        </table>
+    </form>
+    <form action="~/Autentifikacija/Pocetna" method="post">
+        <input type="submit" value="Pocetna"/>
+    </form>
+    <form action="~/Administrator/OdobriKomentar" method="post">
+        <input type="submit" value="Komentari o manifestacijama"/>
+    </form>
+    <table border="1" align="center">
+        <tr bgcolor="yellow">
+            <th>ID</th>
+            <th>Naziv</th>
+            <th>Tip manifestacije</th>
+            <th>Broj mesta</th>
+            <th>Datum odrzavanja</th>
+            <th>Vreme odrzavanja</th>
+            <th>Cena REGULAR karte</th>
+            <th>Satus</th>
+            <th>Ulica i broj</th>
+            <th>Mesto/Grad</th>
+            <th>Postanski broj</th>
+            <th>Poster manifestacije</th>
+        </tr>
+        @foreach (Manifestacija manifestacije in ViewBag.manifestacije.listaManifestacija.Values)
+        {
+            Korisnik k = new Korisnik();
+            k = (Korisnik)Session["korisnik"];
+
+            if (k.Uloga.ToString() == "PRODAVAC")
+            {
+                if (manifestacije.Status.ToString() != "OBRISANO")
+                {
+                    <tr>
+                        <td>@manifestacije.Id</td>
+                        <td>@manifestacije.Naziv</td>
+                        <td>@manifestacije.TipManifestacije</td>
+                        <td>@manifestacije.BrojMesta</td>
+                        <td>@manifestacije.DatumOdrzavanja</td>
+                        <td>@manifestacije.VremeOdrzavanja</td>
+                        <td>@manifestacije.CenaRegularKarte</td>
+                        <td>@manifestacije.Status</td>
+                        <td>@manifestacije.MestoOdrzavanja.UlicaIBroj</td>
+                        <td>@manifestacije.MestoOdrzavanja.MestoGrad</td>
+                        <td>@manifestacije.MestoOdrzavanja.PostanskiBroj</td>
+                        <td ><img width="150" height="50" class="image" src="~/Slike/@manifestacije.PosterManifestacije"/></td>                        
+                    </tr>
+                }
+            }
+            else
+            {
+
+                    <tr>
+                        <td>@manifestacije.Id</td>
+                        <td>@manifestacije.Naziv</td>
+                        <td>@manifestacije.TipManifestacije</td>
+                        <td>@manifestacije.BrojMesta</td>
+                        <td>@manifestacije.DatumOdrzavanja</td>
+                        <td>@manifestacije.VremeOdrzavanja</td>
+                        <td>@manifestacije.CenaRegularKarte</td>
+                        <td>@manifestacije.Status</td>
+                        <td>@manifestacije.MestoOdrzavanja.UlicaIBroj</td>
+                        <td>@manifestacije.MestoOdrzavanja.MestoGrad</td>
+                        <td>@manifestacije.MestoOdrzavanja.PostanskiBroj</td>
+                        <td><img width="150" height="50" class="image" src="~/Slike/@manifestacije.PosterManifestacije" /></td>
+
+                    </tr>
+            }
+        }
+    </table>
+    </br>
+    <form action="~/Administrator/DodajManifestaciju" method="post" enctype="multipart/form-data">
+        <table border="1" align="center">
+            @ViewBag.DodajManifestaciju
+            <th class="first" colspan="2" align="center" bgcolor="yellow">Dodavanje manifestacije</th>
+            <tr align="left">
+                <td>Naziv:</td>
+                <td> <input type="text" name="dodajNaziv" /></td>
+            </tr>
+            <tr align="left">
+                <td>Tip manifestacije:</td>
+                <td>
+                    <input list="listaTipManifestacije" name="dodajTipManifestacije" />
+                    <datalist id="listaTipManifestacije">
+                        <option value="KONCERT"></option>
+                        <option value="FESTIVAL"></option>
+                        <option value="POZORISTE"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr align="left">
+                <td>Broj mesta:</td>
+                <td><input type="number" name="dodajBrojMesta" /></td>
+            </tr>
+            <tr align="left">
+                <td>Datum odrzavanja:</td>
+                <td><input type="date" name="dodajDatumOdrzavanja" /></td>
+            </tr>
+            <tr align="left">
+                <td>Vreme odrzavanja:</td>
+                <td><input type="time" name="dodajVremeOdrzavanja" /></td>
+            </tr>
+            <tr align="left">
+                <td>Cena REGULAR karte:</td>
+                <td><input type="text" name="dodajCenuRegularKarte" /></td>
+            </tr>
+            <tr align="left">
+                <td>Ulica i broj:</td>
+                <td><input type="text" name="dodajUlicuIBroj" /></td>
+            </tr>
+            <tr align="left">
+                <td>Mesto/Grad:</td>
+                <td><input type="text" name="dodajMestoGrad" /></td>
+            </tr>
+            <tr align="left">
+                <td>Postanski broj:</td>
+                <td><input type="text" name="dodajPostanskiBroj" /></td>
+            </tr>
+            <tr>
+                <td>Dodaj sliku:</td>
+                <td>
+                    <input type="file" name="file" />
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="submit" name="dodajManifestaciju" value=" DODAJ MANIFESTACIJU " />
+                </td>
+            </tr>
+            <tr>
+                <td>Id za izmenu:</td>
+                <td><input type="text" name="izmeniId" width="10" /></td>
+            </tr>
+            <td colspan="2" align="center">
+                <input type="submit" name="izmeniManifestaciju" value=" IZMENI MANIFESTACIJU ">
+            </td>
+        </table>
+    </form>
+    </br>
+
+
+    <form action="~/Administrator/ObrisiManifestaciju" method="post" enctype="multipart/form-data">
+        <table border="1" align="center">
+            <td>Id za brisanje:</td>
+            @ViewBag.ObrisiManifestaciju
+            <td><input type="text" name="obrisiManifestacijuId" /></td>
+            <td><input type="submit" value="Obrisi manifestaciju" /></td>
+
+        </table>
+    </form>
+    </br>
+    <form action="~/Administrator/OdobriManifestaciju" method="post">
+        <table border="1" align="center">
+            @ViewBag.OdobriManifestaciju
+            <tr>
+                <td>Id za izmenu STATUSA:</td>
+                <td><input type="text" name="izmeniIdStatus" width="10" /></td>
+            </tr>
+            <td colspan="2" align="center">
+                <input type="submit" name="izmeniStatus" value=" ODOBRI MANIFESTACIJU ">
+            </td>
+        </table>
+    </form>
+    <h1 align="center"><b>PREGLED REZERVISANIH KARTI</b></h1>
+    <table border="1" align="center">
+        <tr bgcolor="yellow">
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Datum i vreme</th>
+            <th>Cena</th>
+            <th>Status karte</th>
+            <th>Tip</th>
+            <th>Broj karata</th>
+            <th>Kupac</th>
+        </tr>
+        @foreach (Karta karta in ViewBag.karte.listaKarata.Values)
+        {
+            <tr>
+                <td width="150">@karta.JedinstveniIdentifikatorKarte</td>
+                <td width="150">@karta.ManifestacijaZaKojuJeRezervisana.Naziv</td>
+                <td width="150">@karta.DatumIVremeManifestacije</td>
+                <td width="150">@karta.Cena</td>
+                <td width="70">@karta.StatusKarta</td>
+                <td width="140">@karta.Tip</td>
+                <td width="100">@karta.BrojKarata</td>
+                <td width="150"> @karta.KorisnickoIme </td>
+            </tr>
+
+        }
+    </table>
+</body>
+</html>

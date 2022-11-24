@@ -1,0 +1,60 @@
+﻿@using RezervacijaKarata.Models
+@{
+    ViewBag.Title = "Komentari";
+}
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<style>
+    table {
+        background-color: #ffd800;
+    }
+</style>
+<body>
+    <div>
+        <table>
+            <form action="~/Autentifikacija/Pocetna" method="post">
+                <input type="submit" value="Pocetna" />
+            </form>
+        </table>
+        <h1 align="center"><b>Komentari o manifestacijama</b></h1>
+        <table border="1" align="center">
+            <tr bgcolor="yellow">
+                <th>ID</th>
+                <th>Naziv</th>
+                <th>Tip manifestacije</th>
+                <th>Satus</th>
+                <th>Ulica i broj</th>
+                <th>Mesto/Grad</th>
+                <th>Postanski broj</th>
+                <th>Poster manifestacije</th>
+                <th>Stanje komentara</th>
+                <th>Komentari</th>
+                <th>Ko je ostavio komentar</th>
+            </tr>
+            @foreach (Komentar k in ViewBag.komentari.listaKomentara.Values)
+            {
+            <tr>
+                <td>@k.IdKomentara</td>
+                <td>@k.ManifestacijaKomentar.Naziv</td>
+                <td>@k.ManifestacijaKomentar.TipManifestacije</td>
+                <td>@k.ManifestacijaKomentar.Status</td>
+                <td>@k.ManifestacijaKomentar.MestoOdrzavanja.UlicaIBroj</td>
+                <td>@k.ManifestacijaKomentar.MestoOdrzavanja.MestoGrad</td>
+                <td>@k.ManifestacijaKomentar.MestoOdrzavanja.PostanskiBroj</td>
+                <td><img width="150" height="50" class="image" src="~/Slike/@k.ManifestacijaKomentar.PosterManifestacije" /></td>
+
+                <td>@k.StanjeKomentar</td>
+                <td>@k.TekstKomentara</td>
+
+                <td>@k.KorisnickoImeKupcaKarte</td>
+            </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

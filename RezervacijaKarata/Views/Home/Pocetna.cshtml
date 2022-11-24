@@ -1,0 +1,174 @@
+﻿@using RezervacijaKarata.Models
+@{
+    ViewBag.Title = "Pocetna";
+}
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        background-color: #00ffff;
+    }
+</style>
+<style>
+
+    table {
+        background-color: #ffd800;
+    }
+</style>
+<body>
+    <table>
+        <form action="~/Autentifikacija/Index" method="post">
+            <input type="submit" value="Prijavi se" />
+        </form>
+        <form action="~/Autentifikacija/Registracija" method="post">
+            <input type="submit" value="Registracija" />
+        </form>
+        <form action="~/Autentifikacija/Profil" method="post">
+            <input type="submit" value="Profil" />
+        </form>
+    </table>
+    <h1 align="center"><b>MANIFESTACIJE</b></h1>
+    <table border="1" align="center">
+        <tr bgcolor="yellow">
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Tip manifestacije</th>
+            <th>Broj mesta</th>
+            <th>Datum odrzavanja</th>
+            <th>Vreme odrzavanja</th>
+            <th>Cena REGULAR karte</th>
+            <th>Ulica i broj</th>
+            <th>Mesto/Grad</th>
+            <th>Postanski broj</th>
+        </tr>
+        @foreach (Manifestacija manifestacije in ViewBag.manifestacije.listaManifestacija.Values)
+        {
+            <tr>
+                <td>@manifestacije.Id</td>
+                <td>@manifestacije.Naziv</td>
+                <td>@manifestacije.TipManifestacije</td>
+                <td>@manifestacije.BrojMesta</td>
+                <td>@manifestacije.DatumOdrzavanja</td>
+                <td>@manifestacije.VremeOdrzavanja</td>
+                <td>@manifestacije.CenaRegularKarte</td>
+                <td>@manifestacije.MestoOdrzavanja.UlicaIBroj</td>
+                <td>@manifestacije.MestoOdrzavanja.MestoGrad</td>
+                <td>@manifestacije.MestoOdrzavanja.PostanskiBroj</td>
+            </tr>
+        }
+    </table>
+    <form action="~/Home/PrikazJedne" method="post">
+        <table border="1" align="center">
+            <td><input type="number" name="prikazHomeId" /></td>
+            <td><input type="submit" value="Prikazi" /></td>
+        </table>
+    </form>
+    <form action="~/Home/KupiKartuIliRezervisi" method="post">
+        <table border="1" align="center">
+            <tr bgcolor="yellow">
+                <td colspan="5" align="center">REZERVISI KATRU</td>
+            </tr>
+            <td bgcolor="yellow">Id:<input type="number" name="kupiKatruId" /></td>
+            <td bgcolor="yellow">
+                Vrsta karte:
+                <input list="vrsta" name="kupiKatruVrsta" />
+                <datalist id="vrsta">
+                    <option value="REGULAR"></option>
+                    <option value="FAN PIT"></option>
+                    <option value="VIP"></option>
+                </datalist>
+            </td>
+            <td bgcolor="yellow">Broj karata:<input type="number" name="kupiKatruBrojKarata" /></td>
+
+            <td bgcolor="yellow"><input type="submit" value="REZERVISI" name="rezervisi" /></td>
+        </table>
+    </form>
+
+    <form action="~/Home/Pretraga" method="post">
+        <table border="1" align="center">
+            <tr bgcolor="yellow">
+                <td align="center" colspan="2">
+                    PRETRAGA MANIFESTACIJA
+                </td>
+            </tr>
+            <tr>
+                <td>Naziv manifestacije:</td>
+                <td><input type="text" name="pretragaNaziv" /></td>
+            </tr>
+            <tr bgcolor="yellow">
+                <td colspan="2" align="center" bgcolor="yellow">Mesto odrzavanja</td>
+            </tr>
+            <tr>
+                <td>Ulica i broj:</td>
+                <td><input type="text" name="pretragaUlicaIBroj" /></td>
+            </tr>
+            <tr>
+                <td>Mesto/Grad:</td>
+                <td><input type="text" name="pretragaMestoGrad" /></td>
+            </tr>
+            <tr>
+                <td>Postanski broj:</td>
+                <td><input type="text" name="pretragaPostanskiBroj" /></td>
+            </tr>
+            <tr bgcolor="yellow">
+                <td colspan="2" align="center">Datum odrzavanja</td>
+            </tr>
+            <tr>
+                <td>OD:</td>
+                <td><input type="date" name="pretragaDatumOd" /></td>
+            </tr>
+            <tr>
+                <td>DO:</td>
+                <td><input type="date" name="pretragaDatumDo" /></td>
+            </tr>
+            <tr bgcolor="yellow">
+                <td colspan="2" align="center">Lokacija</td>
+            </tr>
+            <tr>
+                <td>Mesto:</td>
+                <td><input type="text" name="pretragaLokacija" /></td>
+            </tr>
+            <tr bgcolor="yellow">
+                <td colspan="2" align="center">Cena</td>
+            </tr>
+            <tr>
+                <td>OD:</td>
+                <td><input type="number" name="pretragaCenaOd" /></td>
+            </tr>
+            <tr>
+                <td>Do:</td>
+                <td><input type="number" name="pretragaCenaDo" /></td>
+            </tr>
+            <tr bgcolor="yellow">
+                <td colspan="2" align="center">SORTIRANJE</td>
+            </tr>
+            <tr>
+                <td>Sotritraj po:</td>
+                <td>
+                    <input list="sortiranje" name="pretragaSortiranje" />
+                    <datalist id="sortiranje">
+                        <option value="Naziv manifestacije"></option>
+                        <option value="Datum i vreme odrzavanja"></option>
+                        <option value="Ceni karte"></option>
+                        <option value="Mesto odrzavanja"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Redosled:</td>:</td>
+                <td colspan="2" align="center">
+                    <input list="redosled" name="redosledSortiranja" />
+                    <datalist id="redosled">
+                        <option value="Rastuci"></option>
+                        <option value="Opadajuci"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2"><input type="submit" value="Pretraga" /></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>
